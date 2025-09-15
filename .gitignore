@@ -5,3 +5,6 @@
 /.moon/cache
 /.moon/docker
 /.moon/hooks
+
+# generated tailwind.css
+/assets/tailwind.css

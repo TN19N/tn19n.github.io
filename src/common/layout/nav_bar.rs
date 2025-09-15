@@ -10,27 +10,27 @@ pub fn NavBar() -> Element {
                     h1 { class: "text-2xl font-bold text-primary", "TN19N" }
                     div { class: "flex items-center gap-6",
                         a {
-                            href: "/#about",
+                            href: "#about",
                             class: "text-foreground hover:text-primary transition-colors",
                             "About"
                         }
                         a {
-                            href: "/#blog",
+                            href: "#blog",
                             class: "text-foreground hover:text-primary transition-colors",
                             "Blog"
                         }
                         a {
-                            href: "/#projects",
+                            href: "#projects",
                             class: "text-foreground hover:text-primary transition-colors",
                             "Projects"
                         }
                         a {
-                            href: "/#experiences",
+                            href: "#experiences",
                             class: "text-foreground hover:text-primary transition-colors",
                             "Experience"
                         }
                         a {
-                            href: "/#contact",
+                            href: "#contact",
                             class: "text-foreground hover:text-primary transition-colors",
                             "Contact"
                         }

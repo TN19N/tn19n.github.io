@@ -1,5 +1,4 @@
 [application]
 
-[web.app]
-title = "portfolio"
-base_path = "portfolio"
+[web.watcher]
+watch_path = ["src/", "assets/", "posts/"]

@@ -5,8 +5,35 @@ authors = ["Mustapha <mostafaanawawi@gmail.com>"]
 edition = "2024"
 
 [dependencies]
+chrono = { version = "0.4.42", features = ["serde"] }
+comrak = "0.41.0"
 dioxus = { version = "0.7.0-rc.0", features = ["router"] }
+gloo-net = "0.6.0"
+reqwest = { version = "0.12.23", features = ["json"] }
+serde = "1.0.219"
+serde_json = "1.0.143"
+syntect = { version = "5.2.0", default-features = false, features = ["default-fancy"] }
 
 [features]
 default = ["web"]
 web = ["dioxus/web"]
+
+[unstable]
+build-std = ["std", "panic_abort", "core", "alloc"]
+build-std-features = ["panic_immediate_abort"]
+
+[build]
+rustflags = [
+    "-Clto",
+    "-Zvirtual-function-elimination",
+    "-Zlocation-detail=none"
+]
+
+[profile.release]
+opt-level = "z"
+debug = false
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+incremental = false

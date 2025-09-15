@@ -35,7 +35,9 @@ jobs:
           auto-install: true
 
       - name: Build the app
-        run: moon portfolio:build/release
+        run: |
+          moon portfolio:build/release
+          cp ./target/dx/portfolio/release/web/public/index.html ./target/dx/portfolio/release/web/public/404.html
 
       - name: Configure GitHub Pages
         id: pages
