@@ -1,12 +1,16 @@
-use crate::router::AppRouter;
-use dioxus::prelude::*;
+use crate::{common::providers::theme::ThemeProvider, router::AppRouter};
+use dioxus::{prelude::*, router::RouterConfig};
 
-static TAILWIND: Asset = asset!("./assets/tailwind.css");
+const FAVICON: Asset = asset!("/assets/favicon.ico");
+const TAILWIND: Asset = asset!("./assets/tailwind.css");
 
 #[component]
 pub fn App() -> Element {
     rsx! {
+        document::Link { rel: "icon", href: FAVICON }
         document::Stylesheet { href: TAILWIND }
-        div { class: "min-h-screen bg-background", Router::<AppRouter> {} }
+        ThemeProvider {
+            Router::<AppRouter> { config: RouterConfig::default }
+        }
     }
 }

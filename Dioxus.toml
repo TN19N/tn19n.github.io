@@ -1,5 +1,5 @@
 [application]
 
 [web.app]
-title = "portfolio"
-base_path = "portfolio"
+# HTML title tag content
+title = "TN19N portfolio"

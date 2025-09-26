@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Crafing My Portfolio/Blog Website Using Dioxus",
+    "description": "A step-by-step guide to building a personal portfolio and blog with Rust, Dioxus, and Tailwind CSS, deployed on GitHub Pages.",
+    "tags": ["Rust", "Dioxus", "Github Pages", "CI/CD", "TailwindCss"],
+    "date": "2025-09-26T12:34:56Z",
+    "post": "create_personal_portfolio.md"
+  }
+]
