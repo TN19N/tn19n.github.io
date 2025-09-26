@@ -213,6 +213,9 @@
   }
 }
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -937,6 +940,10 @@
   .inline-flex {
     display: inline-flex;
   }
+  .size-8 {
+    width: calc(var(--spacing) * 8);
+    height: calc(var(--spacing) * 8);
+  }
   .size-9 {
     width: calc(var(--spacing) * 9);
     height: calc(var(--spacing) * 9);
@@ -988,6 +995,9 @@
   }
   .origin-top-right {
     transform-origin: top right;
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .list-inside {
     list-style-position: inside;
@@ -1191,10 +1201,6 @@
   .text-4xl {
     font-size: var(--text-4xl);
     line-height: var(--tw-leading, var(--text-4xl--line-height));
-  }
-  .text-5xl {
-    font-size: var(--text-5xl);
-    line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
   .text-6xl {
     font-size: var(--text-6xl);
@@ -1655,6 +1661,9 @@
     h1, h2, h3, h4, h5, h6 {
       color: var(--color-foreground);
     }
+    strong {
+      color: var(--color-foreground);
+    }
     a {
       color: var(--color-primary);
       &:hover {
@@ -1687,6 +1696,26 @@
       color: var(--color-secondary-foreground);
     }
   }
+}
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
 }
 @property --tw-space-y-reverse {
   syntax: "*";
@@ -1852,6 +1881,11 @@
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
       --tw-gradient-position: initial;

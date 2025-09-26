@@ -126,6 +126,10 @@
             color: var(--color-foreground);
         }
 
+        strong {
+            color: var(--color-foreground);
+        }
+        
         /* Links */
         a {
             color: var(--color-primary);

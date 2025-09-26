@@ -18,9 +18,7 @@ pub fn Hero(elements: Signal<HashMap<&'static str, Event<MountedData>>>) -> Elem
             id: HERO_SECTION_ID,
             class: "py-20 bg-gradient-to-br from-background to-muted",
             div { class: "container mx-auto px-4 text-center",
-                h2 { class: "text-3xl sm:text-5xl font-bold text-primary mb-4",
-                    "Backend Developer"
-                }
+                h2 { class: "text-3xl sm:text-5xl font-bold text-primary mb-4", "Backend Developer" }
                 p { class: "text-xl text-primary font-medium mb-6",
                     "Building scalable systems & robust APIs"
                 }

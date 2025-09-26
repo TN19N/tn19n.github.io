@@ -1,5 +1,5 @@
 use crate::{
-    common::components::ThemeToggle,
+    common::components::{Button, ButtonVariant, ThemeToggle},
     features::home::components::{
         BLOG_SECTION_ID, CONTACT_SECTION_ID, EXPERIENCES_SECTION_ID, HERO_SECTION_ID,
         PROJECTS_SECTION_ID,
@@ -42,20 +42,24 @@ pub fn NavBar() -> Element {
             }
             div { class: "md:hidden",
                 button {
+                    class: "flex w-full items-center px-3 py-2 gap-2 rounded-sm hover:bg-accent hover:text-accent-foreground",
                     "type": "button",
                     "aria-label": "Open mobile menu",
                     onclick: move |_| is_mobile_menu_open.toggle(),
-                    svg {
-                        "xmlns": "http://www.w3.org/2000/svg",
-                        "width": "24",
-                        "height": "24",
-                        "viewBox": "0 0 24 24",
-                        "fill": "none",
-                        "stroke": "currentColor",
-                        "stroke-width": "2",
-                        "stroke-linecap": "round",
-                        "stroke-linejoin": "round",
-                        path { "d": "M4 6h16M4 12h16M4 18h16" }
+                    Button { variant: ButtonVariant::Outline,
+                        svg {
+                            class: "size-8 hover:bg-primary",
+                            "xmlns": "http://www.w3.org/2000/svg",
+                            "width": "24",
+                            "height": "24",
+                            "viewBox": "0 0 24 24",
+                            "fill": "none",
+                            "stroke": "currentColor",
+                            "stroke-width": "2",
+                            "stroke-linecap": "round",
+                            "stroke-linejoin": "round",
+                            path { "d": "M4 6h16M4 12h16M4 18h16" }
+                        }
                     }
                 }
             }
@@ -64,16 +68,15 @@ pub fn NavBar() -> Element {
             div {
                 class: "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm",
                 onclick: move |_| is_mobile_menu_open.set(false),
-                div {
-                    class: "fixed top-4 right-4 w-full max-w-xs bg-card rounded-lg shadow-lg p-6",
-                    div {
-                        class: "flex items-center justify-between",
-                        h2 { class: "text-lg font-bold", "Menu" }
+                div { class: "fixed top-4 right-4 w-full max-w-xs bg-card rounded-lg shadow-lg p-6",
+                    div { class: "flex items-center justify-between",
+                        h2 { class: "text-foreground text-lg font-bold", "Menu" }
                         button {
                             "type": "button",
                             "aria-label": "Close mobile menu",
                             onclick: move |_| is_mobile_menu_open.set(false),
-                            svg {
+                            button {
+                                class: "text-foreground hover:text-primary",
                                 "xmlns": "http://www.w3.org/2000/svg",
                                 "width": "24",
                                 "height": "24",

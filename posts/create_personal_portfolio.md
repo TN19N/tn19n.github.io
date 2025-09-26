@@ -1,309 +1,187 @@
-# Hello
+## Introduction
 
-<p>
-    <p align="center" >
-      <!-- <img src="./notes/header-light-updated.svg#gh-light-mode-only" >
-      <img src="./notes/header-dark-updated.svg#gh-dark-mode-only" > -->
-      <!-- <a href="https://dioxuslabs.com">
-          <img src="./notes/flat-splash.avif">
-      </a> -->
-      <img src="./notes/splash-header-darkmode.svg#gh-dark-mode-only" style="width: 80%; height: auto;">
-      <img src="./notes/splash-header.svg#gh-light-mode-only" style="width: 80%; height: auto;">
-      <img src="./notes/image-splash.avif">
-      <br>
-    </p>
-</p>
-<div align="center">
-  <!-- Crates version -->
-  <a href="https://crates.io/crates/dioxus">
-    <img src="https://img.shields.io/crates/v/dioxus.svg?style=flat-square"
-    alt="Crates.io version" />
-  </a>
-  <!-- Downloads -->
-  <a href="https://crates.io/crates/dioxus">
-    <img src="https://img.shields.io/crates/d/dioxus.svg?style=flat-square"
-      alt="Download" />
-  </a>
-  <!-- docs -->
-  <a href="https://docs.rs/dioxus">
-    <img src="https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square"
-      alt="docs.rs docs" />
-  </a>
-  <!-- CI -->
-  <a href="https://github.com/jkelleyrtp/dioxus/actions">
-    <img src="https://github.com/dioxuslabs/dioxus/actions/workflows/main.yml/badge.svg"
-      alt="CI status" />
-  </a>
+In this post, I'll guide you through creating and deploying a simple, modern portfolio and blog using a powerful stack of technologies. We'll build a static site that you can host for free on GitHub Pages, allowing you to share articles and insights while learning the fundamentals of web development with Rust.
 
-  <!--Awesome -->
-  <a href="https://dioxuslabs.com/awesome">
-    <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome Page" />
-  </a>
-  <!-- Discord -->
-  <a href="https://discord.gg/XgGxMSkvUM">
-    <img src="https://img.shields.io/discord/899851952891002890.svg?logo=discord&style=flat-square" alt="Discord Link" />
-  </a>
-</div>
+## Core Technologies
 
-<div align="center">
-  <h3>
-    <a href="https://dioxuslabs.com"> Website </a>
-    <span> | </span>
-    <a href="https://github.com/DioxusLabs/dioxus/tree/main/examples"> Examples </a>
-    <span> | </span>
-    <a href="https://dioxuslabs.com/learn/0.6/guide"> Guide </a>
-    <span> | </span>
-    <a href="https://github.com/DioxusLabs/dioxus/blob/main/translations/zh-cn/README.md"> 中文 </a>
-    <span> | </span>
-    <a href="https://github.com/DioxusLabs/dioxus/blob/main/translations/pt-br/README.md"> PT-BR </a>
-    <span> | </span>
-    <a href="https://github.com/DioxusLabs/dioxus/blob/main/translations/ja-jp/README.md"> 日本語 </a>
-    <span> | </span>
-    <a href="https://github.com/DioxusLabs/dioxus/blob/main/translations/tr-tr"> Türkçe </a>
-    <span> | </span>
-    <a href="https://github.com/DioxusLabs/dioxus/blob/main/translations/ko-kr"> 한국어 </a>
-  </h3>
-</div>
-<br>
-<p align="center">
-  <a href="https://github.com/DioxusLabs/dioxus/releases/tag/v0.7.0-alpha.0">✨ Dioxus 0.7 is in alpha - test it out! ✨</a>
-</p>
-<br>
+- **[Rust](https://www.rust-lang.org/):** A language that guarantees memory safety and high performance, making it an excellent choice for building reliable web applications.
+- **[Dioxus](https://dioxuslabs.com/):** A modern UI framework for Rust that allows building cross-platform applications for the web, desktop, and mobile. It's inspired by React, which makes it easy to pick up for developers familiar with component-based frameworks.
+- **[Moon](https://moonrepo.dev/moon):** A better way to manage monorepos and toolchains. We'll use it to lock down our Rust toolchain and dependency versions, ensuring a consistent development environment.
+- **[Tailwind CSS](https://tailwindcss.com/):** A utility-first CSS framework that enables rapid UI development without writing custom CSS.
+- **[GitHub Pages](https://pages.github.com/):** For hosting the static website directly from a GitHub repository.
+- **[GitHub Actions](https://github.com/features/actions):** To automate the build and deployment process (CI/CD).
 
-Build for web, desktop, and mobile, and more with a single codebase. Zero-config setup, integrated hot-reloading, and signals-based state management. Add backend functionality with Server Functions and bundle with our CLI.
+## Initial Project Setup
+
+First, let's get our project structure and tooling in place.
+
+### Scaffolding with Dioxus CLI
+
+We'll start by installing the Dioxus CLI, `dx`, to scaffold our new project. For this tutorial, we're using version `0.7.0-rc.0` to take advantage of the latest features.
+
+```bash
+cargo install dioxus-cli --version 0.7.0-rc.0
+```
+
+With the CLI installed, create a new project:
+
+```bash
+dx new portfolio
+```
+
+When prompted, make sure to enable the `Router`, `Tailwind CSS`, and `LLMs prompts` options. The last option creates a helpful prompt file that gives context to LLM-based tools and assistants, which is a nice touch from the Dioxus team.
+
+### Pinning Versions with Moon
+
+To ensure our build is reproducible and that all developers (including our future selves) use the same tool versions, we'll use Moon. After installing Moon by following the [official docs](https://moonrepo.dev/docs/install), we'll create a `moon.yml` file in our project root to define our toolchain.
+
+This configuration tells Moon which version of Rust, and other tools to use.
+
+```yaml
+# .moon/toolchain.yml
+rust:
+  version: 1.90.0
+  syncToolchainConfig: true
+  binstallVersion: 1.15.3
+  components:
+    - clippy
+    - rustfmt
+  targets:
+    - wasm32-unknown-unknown
+  bins:
+    - bin: dioxus-cli@0.7.0-rc.0
+```
+
+Now, running `moon setup` will automatically install the correct versions of everything we need.
+
+## UI and Components
+
+Dioxus uses a component-based architecture, similar to React. UI is written in `RSX`, a Rust macro that looks almost identical to JSX. This, combined with a reactive state management system using "hooks" like `use_signal`, `use_resource`, and `use_memo`, makes building complex UIs surprisingly straightforward.
+
+### Styling with Tailwind CSS
+
+Thanks to the Dioxus CLI's integration, setting up Tailwind CSS is incredibly simple. In your `portfolio/src/main.rs`, you just need to link the stylesheet:
 
 ```rust
-fn app() -> Element {
-    let mut count = use_signal(|| 0);
+// portfolio/src/main.rs
+const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
+
+#[component]
+fn App() -> Element {
+    rsx! {
+        // ... other links
+        document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        Router::<Route> {}
+    }
+}
+```
+
+The `dioxus-cli` automatically processes the `tailwind.css` file in your assets directory during the build, applying all the utility classes you use in your RSX markup and generating a final, optimized CSS file.
+
+### Creating a Reusable Component
+
+Let's look at a simple `Badge` component from this project to see how it all comes together.
+
+```rust
+// src/common/components/badge.rs
+use dioxus::prelude::*;
+
+#[derive(Debug, Clone, PartialEq, Props)]
+pub struct BadgeProps {
+    children: Element,
+}
+
+#[component]
+pub fn Badge(props: BadgeProps) -> Element {
+    rsx! {
+        div {
+            class: "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium",
+            {props.children}
+        }
+    }
+}
+```
+
+This is a basic, reusable component that accepts `children`. We can use it in any other component like this:
+
+```rust
+rsx! {
+    Badge { "Hello World" }
+}
+```
+
+## App Structure and Routing
+
+A multi-page application needs a router. In Dioxus, this is handled elegantly using a combination of a `Routable` enum and a `Router` component.
+
+```rust
+// src/router.rs
+use dioxus::prelude::*;
+
+#[derive(Routable, Clone, PartialEq)]
+pub enum AppRouter {
+    #[route("/")]
+    Home {},
+    #[route("/blog")]
+    Blog {},
+    #[route("/blog/:post")]
+    Post { post: String },
+    // ... other routes
+}
+```
+
+The `AppRouter` enum defines all the possible routes in the application. The `Router` component, placed in your main `App` component, is responsible for rendering the correct page component based on the current URL.
+
+## Rendering Blog Posts from Markdown
+
+To create a blog, we need a way to convert Markdown files into HTML. This project uses the excellent `comrak` crate, which is a fast and feature-rich Markdown parser.
+
+Here's a simplified look at how a blog post is rendered:
+
+```rust
+// src/features/blog/pages/post.rs
+use comrak::{markdown_to_html, ComrakOptions};
+use dioxus::prelude::*;
+
+#[component]
+pub fn Post(post_name: String) -> Element {
+    let post_content = use_resource(move || async move {
+        // In a real app, you'd fetch your markdown file content here
+        let markdown = fetch_markdown_from_file(&post_name).await;
+        markdown_to_html(&markdown, &ComrakOptions::default())
+    });
 
     rsx! {
-        h1 { "High-Five counter: {count}" }
-        button { onclick: move |_| count += 1, "Up high!" }
-        button { onclick: move |_| count -= 1, "Down low!" }
+        match post_content.read().as_ref() {
+            Some(html) => rsx! {
+                article {
+                    dangerous_inner_html: "{html}",
+                }
+            },
+            None => rsx! { "Loading..." }
+        }
     }
 }
 ```
 
-## ⭐️ Unique features:
+We use a `use_resource` hook to asynchronously fetch the Markdown content. Then, `comrak::markdown_to_html` converts it to an HTML string, which is rendered using `dangerous_inner_html`. The project also uses a `Syntect` plugin with `comrak` to add syntax highlighting to code blocks automatically.
 
-- Cross-platform apps in three lines of code (web, desktop, mobile, server, and more)
-- [Ergonomic state management](https://dioxuslabs.com/blog/release-050) combines the best of React, Solid, and Svelte
-- Built-in featureful, type-safe, fullstack web framework
-- Integrated bundler for deploying to the web, macOS, Linux, and Windows
-- Subsecond Rust hot-patching and asset hot-reloading
-- And more! [Take a tour of Dioxus](https://dioxuslabs.com/learn/0.6/).
+## Automated Deployment with GitHub Actions
 
-## Instant hot-reloading
+The final piece of the puzzle is automating deployment. We want to automatically build and deploy our site to GitHub Pages every time we push to the `main` branch.
 
-With one command, `dx serve` and your app is running. Edit your markup, styles, and see changes in milliseconds. Use our experimental `dx serve --hotpatch` to update Rust code in real time.
+The `.github/workflows/cd.yml` file defines this process:
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/DioxusLabs/screenshots/refs/heads/main/blitz/hotreload-video.webp">
-  <!-- <video src="https://private-user-images.githubusercontent.com/10237910/386919031-6da371d5-3340-46da-84ff-628216851ba6.mov" width="500"></video> -->
-  <!-- <video src="https://private-user-images.githubusercontent.com/10237910/386919031-6da371d5-3340-46da-84ff-628216851ba6.mov" width="500"></video> -->
-</div>
+1.  **Checkout:** It checks out the repository's code.
+2.  **Setup Toolchain:** It uses `moonrepo/setup-toolchain` to install the Rust and Moon versions defined in our `moon.yml`.
+3.  **Build:** It runs `moon portfolio:build/release` to build the application in release mode. This creates the static assets (HTML, CSS, JS, Wasm) in the `target/dx/portfolio/release/web/public` directory.
+4.  **Upload Artifact:** It uploads the built `public` directory as a GitHub Pages artifact.
+5.  **Deploy:** A separate `deploy` job takes this artifact and deploys it to your GitHub Pages site.
 
-## Build Beautiful Apps
+With this workflow in place, your portfolio is automatically updated on every push to `main`.
 
-Dioxus apps are styled with HTML and CSS. Use the built-in TailwindCSS support or load your favorite CSS library. Easily call into native code (objective-c, JNI, Web-Sys) for a perfect native touch.
+## Conclusion
 
-<div align="center">
-  <img src="./notes/ebou2.avif">
-</div>
+We've covered a lot of ground: setting up a reproducible development environment with Moon, building a component-based UI with Dioxus and Tailwind CSS, handling routing, rendering Markdown for a blog, and automating deployment with GitHub Actions.
 
-
-## Experimental Native Renderer
-
-Render using web-sys, webview, server-side-rendering, liveview, or even with our experimental WGPU-based renderer. Embed Dioxus in Bevy, WGPU, or even run on embedded Linux!
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/DioxusLabs/screenshots/refs/heads/main/blitz/native-blitz-wgpu.webp">
-</div>
-
-
-## First-party primitive components
-
-Get started quickly with a complete set of primitives modeled after shadcn/ui and Radix-Primitives.
-
-<div align="center">
-  <img src="./notes/primitive-components.avif">
-</div>
-
-## First-class Android and iOS support
-
-Dioxus is the fastest way to build native mobile apps with Rust. Simply run `dx serve --platform android` and your app is running in an emulator or on device in seconds. Call directly into JNI and Native APIs.
-
-<div align="center">
-  <img src="./notes/android_and_ios2.avif" width="500">
-</div>
-
-
-## Productive, typesafe, fullstack web framework
-
-Directly call your backend from your frontend with our built-in type-safe RPC using [`server_fn`](http://crates.io/crates/server_fn). Supports streaming, suspense, bundle splitting, websockets, and more.
-
-```rust
-fn app() -> Element {
-  let mut fortune = use_signal(|| "Fetch a fortune!");
-  rsx! {
-    h1 { "{fortune}" }
-    button {
-      onclick: move |_| async move {
-        fortune.set(fetch_fortune().await.unwrap());
-      }
-    }
-  }
-}
-
-#[server]
-async fn fetch_fortune() -> ServerFnResult<String> {
-  "Dioxus is super productive!".to_string()
-}
-```
-
-## Bundle for web, desktop, and mobile
-
-Simply run `dx bundle` and your app will be built and bundled with maximization optimizations. On the web, take advantage of [`.avif` generation, `.wasm` compression, minification](https://dioxuslabs.com/learn/0.6/guides/assets), and more. Build WebApps weighing [less than 50kb](https://github.com/ealmloff/tiny-dioxus/) and desktop/mobile apps less than 5mb.
-
-<div align="center">
-  <img src="./notes/bundle.gif">
-</div>
-
-
-## Fantastic documentation
-
-We've put a ton of effort into building clean, readable, and comprehensive documentation. All html elements and listeners are documented with MDN docs, and our Docs runs continuous integration with Dioxus itself to ensure that the docs are always up to date. Check out the [Dioxus website](https://dioxuslabs.com/learn/0.6/) for guides, references, recipes, and more. Fun fact: we use the Dioxus website as a testbed for new Dioxus features - [check it out!](https://github.com/dioxusLabs/docsite)
-
-<div align="center">
-  <img src="./notes/docs.avif">
-</div>
-
-
-## Modular and Customizable
-
-Build your own renderer, or use a community renderer like [Freya](http://freyaui.dev). Use our modular components like RSX, VirtualDom, Blitz, Taffy, and Subsecond.
-
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/DioxusLabs/screenshots/refs/heads/main/blitz/freya-todo-example.webp">
-</div>
-
-## Community
-
-Dioxus is a community-driven project, with a very active [Discord](https://discord.gg/XgGxMSkvUM) and [GitHub](https://github.com/DioxusLabs/dioxus/issues) community. We're always looking for help, and we're happy to answer questions and help you get started. [Our SDK](https://github.com/DioxusLabs/dioxus-std) is community-run and we even have a [GitHub organization](https://github.com/dioxus-community/) for the best Dioxus crates that receive free upgrades and support.
-
-<div align="center">
-  <img src="./notes/dioxus-community.avif">
-</div>
-
-## Full-time core team
-
-Dioxus has grown from a side project to a small team of fulltime engineers. Thanks to the generous support of FutureWei, Satellite.im, the GitHub Accelerator program, we're able to work on Dioxus full-time. Our long term goal is for Dioxus to become self-sustaining by providing paid high-quality enterprise tools. If your company is interested in adopting Dioxus and would like to work with us, please reach out!
-
-## Supported Platforms
-
-<div align="center">
-  <table style="width:100%">
-    <tr>
-      <td>
-      <b>Web</b>
-      </td>
-      <td>
-        <ul>
-          <li>Render directly to the DOM using WebAssembly</li>
-          <li>Pre-render with SSR and rehydrate on the client</li>
-          <li>Simple "hello world" at about 50kb, comparable to React</li>
-          <li>Built-in dev server and hot reloading for quick iteration</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <b>Desktop</b>
-      </td>
-      <td>
-        <ul>
-          <li>Render using Webview or - experimentally - with WGPU or <a href="https://freyaui.dev">Freya</a> (Skia) </li>
-          <li>Zero-config setup. Simply `cargo run` or `dx serve` to build your app </li>
-          <li>Full support for native system access without IPC </li>
-          <li>Supports macOS, Linux, and Windows. Portable <3mb binaries </li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <b>Mobile</b>
-      </td>
-      <td>
-        <ul>
-          <li>Render using Webview or - experimentally - with WGPU or Skia </li>
-          <li>Build .ipa and .apk files for iOS and Android </li>
-          <li>Call directly into Java and Objective-C with minimal overhead</li>
-          <li>From "hello world" to running on device in seconds</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <b>Server-side Rendering</b>
-      </td>
-      <td>
-        <ul>
-          <li>Suspense, hydration, and server-side rendering</li>
-          <li>Quickly drop in backend functionality with server functions</li>
-          <li>Extractors, middleware, and routing integrations</li>
-          <li>Static-site generation and incremental regeneration</li>
-        </ul>
-      </td>
-    </tr>
-  </table>
-</div>
-
-## Running the examples
-
-> The examples in the main branch of this repository target the git version of dioxus and the CLI. If you are looking for examples that work with the latest stable release of dioxus, check out the [0.6 branch](https://github.com/DioxusLabs/dioxus/tree/v0.6/examples).
-
-The examples in the top level of this repository can be run with:
-
-```sh
-cargo run --example <example>
-```
-
-However, we encourage you to download the dioxus-cli to test out features like hot-reloading. To install the most recent binary CLI, you can use cargo binstall.
-
-```sh
-cargo binstall dioxus-cli@0.7.0-rc.0 --force
-```
-
-If this CLI is out-of-date, you can install it directly from git
-
-```sh
-cargo install --git https://github.com/DioxusLabs/dioxus dioxus-cli --locked
-```
-
-With the CLI, you can also run examples with the web platform. You will need to disable the default desktop feature and enable the web feature with this command:
-
-```sh
-dx serve --example <example> --platform web -- --no-default-features
-```
-
-## Contributing
-
-- Check out the website [section on contributing](https://dioxuslabs.com/learn/0.6/contributing).
-- Report issues on our [issue tracker](https://github.com/dioxuslabs/dioxus/issues).
-- [Join](https://discord.gg/XgGxMSkvUM) the discord and ask questions!
-
-<a href="https://github.com/dioxuslabs/dioxus/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=dioxuslabs/dioxus&max=30&columns=10" />
-</a>
-
-## License
-
-This project is licensed under either the [MIT license] or the [Apache-2 License].
-
-[apache-2 license]: https://github.com/DioxusLabs/dioxus/blob/master/LICENSE-APACHE
-[mit license]: https://github.com/DioxusLabs/dioxus/blob/master/LICENSE-MIT
-
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in Dioxus by you, shall be licensed as MIT or Apache-2, without any additional
-terms or conditions.
+This stack provides a robust foundation for building high-performance, maintainable web applications in Rust. You now have a live portfolio and blog to share your work and ideas with the world. Happy coding!
