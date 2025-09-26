@@ -1,0 +1,13 @@
+[
+  {
+    "label": "Run Dev",
+    "command": "moon portfolio:serve/dev",
+    "hide": "always"
+  },
+  {
+    "label": "Format",
+    "command": "moon portfolio:fmt",
+    "hide": "always",
+    "reveal": "never"
+  }
+]

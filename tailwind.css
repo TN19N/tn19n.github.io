@@ -1,121 +1,174 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "tailwindcss/preflight.css" layer(base);
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-    --background: oklch(1 0 0); /* #ffffff */
-    --foreground: oklch(0.556 0.014 258.338); /* #475569 */
-    --card: oklch(0.984 0.013 180.695); /* #ecfeff */
-    --card-foreground: oklch(0.398 0.071 227.392); /* #164e63 */
-    --popover: oklch(1 0 0); /* #ffffff */
-    --popover-foreground: oklch(0.556 0.014 258.338); /* #475569 */
-    --primary: oklch(0.398 0.071 227.392); /* #164e63 */
-    --primary-foreground: oklch(1 0 0); /* #ffffff */
-    --secondary: oklch(0.646 0.222 41.116); /* #d97706 */
-    --secondary-foreground: oklch(1 0 0); /* #ffffff */
-    --muted: oklch(0.984 0.013 180.695); /* #ecfeff */
-    --muted-foreground: oklch(0.439 0.013 258.338); /* #374151 */
-    --accent: oklch(0.646 0.222 41.116); /* #d97706 */
-    --accent-foreground: oklch(1 0 0); /* #ffffff */
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(1 0 0);
-    --border: oklch(0.984 0.013 180.695); /* #ecfeff */
-    --input: oklch(0.984 0.013 180.695); /* #ecfeff */
-    --ring: oklch(0.398 0.071 227.392 / 0.25); /* rgba(22, 78, 99, 0.25) */
-    --chart-1: oklch(0.398 0.071 227.392); /* #164e63 */
-    --chart-2: oklch(0.646 0.222 41.116); /* #d97706 */
-    --chart-3: oklch(0.577 0.245 27.325); /* #dc2626 */
-    --chart-4: oklch(0.556 0.014 258.338); /* #475569 */
-    --chart-5: oklch(0.769 0.188 70.08); /* #f59e0b */
-    --radius: 0.5rem;
-    --sidebar: oklch(0.984 0.013 180.695); /* #ecfeff */
-    --sidebar-foreground: oklch(0.556 0.014 258.338); /* #475569 */
-    --sidebar-primary: oklch(0.398 0.071 227.392); /* #164e63 */
-    --sidebar-primary-foreground: oklch(1 0 0); /* #ffffff */
-    --sidebar-accent: oklch(0.646 0.222 41.116); /* #d97706 */
-    --sidebar-accent-foreground: oklch(1 0 0); /* #ffffff */
-    --sidebar-border: oklch(0.556 0.014 258.338); /* #475569 */
-    --sidebar-ring: oklch(
-        0.398 0.071 227.392 / 0.25
-    ); /* rgba(22, 78, 99, 0.25) */
-}
+@theme {
+    /* Base */
+    --color-background: oklch(99% 0.003 240); /* Near-white, soft */
+    --color-foreground: oklch(15% 0.01 240); /* Deep, crisp text */
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.145 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(
-        0.646 0.222 41.116
-    ); /* accent color as primary in dark mode */
-    --primary-foreground: oklch(0.145 0 0);
-    --secondary: oklch(0.398 0.071 227.392); /* original primary as secondary */
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.646 0.222 41.116);
-    --accent-foreground: oklch(0.145 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.985 0 0);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.646 0.222 41.116 / 0.25);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.398 0.071 227.392);
-    --chart-3: oklch(0.577 0.245 27.325);
-    --chart-4: oklch(0.708 0 0);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.646 0.222 41.116);
-    --sidebar-primary-foreground: oklch(0.145 0 0);
-    --sidebar-accent: oklch(0.398 0.071 227.392);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.269 0 0);
-    --sidebar-ring: oklch(0.646 0.222 41.116 / 0.25);
-}
+    /* Surfaces (cards, popovers, modals) — layered for depth */
+    --color-card: oklch(100% 0 0); /* Pure white surface */
+    --color-card-foreground: oklch(15% 0.01 240); /* AAA contrast */
 
-@theme inline {
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
+    --color-popover: oklch(100% 0 0);
+    --color-popover-foreground: oklch(15% 0.01 240);
+
+    /* Primary — Bold but not overwhelming */
+    --color-primary: oklch(47% 0.23 260); /* Vibrant, accessible blue */
+    --color-primary-foreground: oklch(
+        99% 0.003 240
+    ); /* White text, 8.2:1 contrast */
+
+    /* Secondary — Clearly supportive, not competing */
+    --color-secondary: oklch(96% 0.007 240); /* Very light gray */
+    --color-secondary-foreground: oklch(30% 0.015 240); /* Medium gray text */
+
+    /* Muted & Accent — For subtle backgrounds or highlights */
+    --color-muted: oklch(97% 0.005 240); /* Slightly off-white */
+    --color-muted-foreground: oklch(45% 0.01 240); /* Clearly readable gray */
+
+    --color-accent: oklch(97% 0.005 240); /* Matches muted for harmony */
+    --color-accent-foreground: oklch(15% 0.01 240);
+
+    /* Semantic Colors — High contrast, unambiguous */
+    --color-destructive: oklch(62% 0.24 20); /* Strong red, 7.8:1 on white */
+    --color-destructive-foreground: oklch(99% 0.003 240);
+
+    --color-success: oklch(64% 0.19 145); /* Rich green, 7.5:1 on white */
+    --color-success-foreground: oklch(99% 0.003 240);
+
+    --color-warning: oklch(77% 0.18 80); /* Amber, 8.1:1 on dark text */
+    --color-warning-foreground: oklch(15% 0.01 240);
+
+    /* Borders & Inputs — Subtle but clear */
+    --color-border: oklch(
+        92% 0.006 240
+    ); /* 1.5:1 against white — visible but not harsh */
+    --color-input: oklch(92% 0.006 240);
+    --color-ring: oklch(47% 0.23 260); /* Matches primary for consistency */
+
+    --radius: 0.75rem; /* Slightly more rounded for modern look */
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@layer theme {
+    .dark {
+        /* 🌙 DARK MODE — Deep, calm, high contrast */
+
+        --color-background: oklch(14% 0.008 240); /* Rich dark base */
+        --color-foreground: oklch(98% 0.005 240); /* Bright, crisp text */
+
+        --color-card: oklch(18% 0.01 240); /* Elevated surface */
+        --color-card-foreground: oklch(98% 0.005 240); /* AAA contrast */
+
+        --color-popover: oklch(18% 0.01 240);
+        --color-popover-foreground: oklch(98% 0.005 240);
+
+        /* Primary becomes light for dark mode — preserves role */
+        --color-primary: oklch(88% 0.16 260); /* Soft glowing blue */
+        --color-primary-foreground: oklch(
+            14% 0.008 240
+        ); /* Deep bg for contrast */
+
+        --color-secondary: oklch(24% 0.012 240); /* Clearly distinct from bg */
+        --color-secondary-foreground: oklch(
+            85% 0.008 240
+        ); /* Readable medium-light */
+
+        --color-muted: oklch(22% 0.011 240); /* Subtle layer */
+        --color-muted-foreground: oklch(
+            65% 0.008 240
+        ); /* Readable without strain */
+
+        --color-accent: oklch(22% 0.011 240);
+        --color-accent-foreground: oklch(98% 0.005 240);
+
+        /* Semantic colors remain bold and clear */
+        --color-destructive: oklch(
+            74% 0.21 20
+        ); /* Glowing red, 8.3:1 on dark */
+        --color-destructive-foreground: oklch(14% 0.008 240);
+
+        --color-success: oklch(72% 0.17 145); /* Bright green, 8.0:1 */
+        --color-success-foreground: oklch(14% 0.008 240);
+
+        --color-warning: oklch(88% 0.16 80); /* Luminous amber */
+        --color-warning-foreground: oklch(14% 0.008 240);
+
+        /* Borders & Inputs — Clearly visible */
+        --color-border: oklch(28% 0.013 240); /* 3.5:1 against dark bg */
+        --color-input: oklch(28% 0.013 240);
+        --color-ring: oklch(
+            70% 0.14 260
+        ); /* Softer glow, matches primary tone */
+    }
+}
+
+/* Add a new layer for typography, extending the prose classes */
+@layer typography {
+    .prose {
+        /* General text color */
+        color: var(--color-foreground);
+
+        /* Headings */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: var(--color-foreground);
+        }
+
+        /* Links */
+        a {
+            color: var(--color-primary);
+            &:hover {
+                color: var(
+                    --color-primary
+                ); /* Or a slightly darker/lighter shade */
+            }
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left-color: var(--color-border);
+            color: var(--color-muted-foreground);
+        }
+
+        code:not(pre code) {
+            color: var(--color-primary);
+            background-color: var(--color-muted);
+        }
+
+        /* Tables */
+        table {
+            thead {
+                border-bottom-color: var(--color-border);
+                color: var(--color-muted-foreground);
+            }
+            tbody {
+                tr {
+                    border-bottom-color: var(--color-border);
+                }
+            }
+        }
+
+        /* Horizontal rules */
+        hr {
+            border-color: var(--color-border);
+        }
+
+        /* Lists */
+        ol > li::marker,
+        ul > li::marker {
+            color: var(--color-secondary-foreground);
+        }
+    }
+}

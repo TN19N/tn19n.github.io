@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Create Personal Portfolio and Blog",
+    "description": "In this post i will explain how to setup a simple personal blog post",
+    "tags": ["Rust", "Dioxus", "Github Pages", "CI/CD"],
+    "date": "2025-09-10T12:34:56Z",
+    "post": "create_personal_portfolio.md"
+  }
+]

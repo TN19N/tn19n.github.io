@@ -1,4 +1,0 @@
-[application]
-
-[web.watcher]
-watch_path = ["src/", "assets/", "posts/"]

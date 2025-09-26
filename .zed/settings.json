@@ -1,0 +1,26 @@
+{
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "experimental": {
+          "classRegex": [
+            "class=\"([^\"]*)",
+            "class\\s*:\\s*\"([^\"}]*)",
+            "class={\"([^\"}]*)",
+            "class=format!({\"([^\"}]*)"
+          ]
+        },
+        "includeLanguages": {
+          "Rust": "html",
+          "rust": "html",
+          "*.rs": "html"
+        }
+      }
+    }
+  },
+  "languages": {
+    "Rust": {
+      "language_servers": ["tailwindcss-language-server", "rust-analyzer"]
+    }
+  }
+}

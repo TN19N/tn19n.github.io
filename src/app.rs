@@ -1,5 +1,5 @@
-use crate::router::AppRouter;
-use dioxus::prelude::*;
+use crate::{common::providers::theme::ThemeProvider, router::AppRouter};
+use dioxus::{prelude::*, router::RouterConfig};
 
 static TAILWIND: Asset = asset!("./assets/tailwind.css");
 
@@ -7,7 +7,8 @@ static TAILWIND: Asset = asset!("./assets/tailwind.css");
 pub fn App() -> Element {
     rsx! {
         document::Stylesheet { href: TAILWIND }
-        document::Stylesheet { href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css" }
-        div { class: "min-h-screen bg-background flex flex-col", Router::<AppRouter> {} }
+        ThemeProvider {
+            Router::<AppRouter> { config: RouterConfig::default }
+        }
     }
 }

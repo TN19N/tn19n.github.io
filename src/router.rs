@@ -1,8 +1,5 @@
 use crate::{
-    common::{
-        layout::{Footer, NavBar},
-        pages::PageNotFound,
-    },
+    common::{layout::AppLayout, pages::page_not_found_or_error::PageNotFoundOrError},
     features::{Blog, Home, Post},
 };
 use dioxus::prelude::*;
@@ -10,19 +7,15 @@ use dioxus::prelude::*;
 #[derive(Debug, Clone, PartialEq, Routable)]
 #[rustfmt::skip]
 pub enum AppRouter {
-    #[layout(NavBar)]
-        #[layout(Footer)]
+    #[layout(AppLayout)]
+        #[route("/#:anchor")]
+        Home { anchor: String },
+        #[nest("/blog")]
             #[route("/")]
-            Home {},
-            #[nest("/blog")]
-                #[route("/")]
-                Blog {},
-                #[route("/:post")]
-                Post { post: String },
-            #[end_nest] // Nest("/blog")
-        #[end_layout] // Layout(Footer)
-    #[end_layout] // Layout(NavBar)
-
-    #[route("/..segments")]
-    PageNotFound { segments: Vec<String> },
+            Blog {},
+            #[route("/post/:post")]
+            Post { post: String },
+        #[end_nest]
+        #[route("/:..segments")]
+        PageNotFoundOrError { segments: Vec<String> },
 }

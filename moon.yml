@@ -15,11 +15,20 @@ fileGroups:
     - tests/**/*
 
 tasks:
-  build/release:
-    command: dx build --release
+  build/dev:
+    command: dx build
     inputs:
       - "@globs(sources)"
       - "@globs(assets)"
+  build/release:
+    extends: build/dev
+    args: ["--release"]
+  serve/dev:
+    command: dx serve --addr 0.0.0.0
+    preset: watcher
+  serve/release:
+    command: dx serve --addr 0.0.0.0 --release
+    preset: watcher
   test:
     command: cargo test
     inputs:
