@@ -6,7 +6,7 @@ edition = "2024"
 
 [dependencies]
 chrono = { version = "0.4.42", features = ["serde"] }
-comrak = "0.42.0"
+comrak = "0.43.0"
 css-color = "0.2.8"
 dioxus = { version = "0.7.0-rc.0", features = ["router"] }
 dioxus-sdk = { git = "https://github.com/ealmloff/dioxus-std", branch = "0.7", features = ["storage", "window"]  }
