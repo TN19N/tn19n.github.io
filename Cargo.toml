@@ -13,7 +13,7 @@ dioxus-sdk = { git = "https://github.com/ealmloff/dioxus-std", branch = "0.7", f
 gloo-net = "0.6.0"
 gloo-timers = "0.3.0"
 reqwest = { version = "0.12.23", features = ["json"] }
-serde = "1.0.226"
+serde = "1.0.228"
 serde_json = "1.0.145"
 syntect = { version = "5.2.0", default-features = false, features = ["default-fancy"] }
 web-sys = { version = "0.3.80", features = ["Window", "Document", "Element", "Event", "EventTarget"] }
