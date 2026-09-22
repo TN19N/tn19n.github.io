@@ -1,0 +1,71 @@
+{
+  "name": "Mustapha Annouaoui",
+  "role": "Backend Developer",
+  "location": "Casablanca, Morocco",
+  "email": "mostafaanawawi@gmail.com",
+  "phone": "+212 606 434 670",
+  "github": "https://github.com/TN19N",
+  "linkedin": "https://www.linkedin.com/in/mustapha-annouaoui/",
+  "website": "https://tn19n.github.io/",
+  "summary": "Software developer building backend services with NestJS, PostgreSQL, and Kafka, alongside Flutter applications for iOS and Android. At Ora Technologies, my work spans payment services, internal tools, and the Kooul mobile app.",
+  "company": "Ora Technologies",
+  "jobTitle": "Junior Software Developer",
+  "dates": "Dec 2023 - Present",
+  "bullets": [
+    "Built <b>NestJS and PostgreSQL</b> services for Ora Cash, including authentication, role-based access control, and transaction-related modules.",
+    "Developed backend features for the Ora Cash admin panel: <b>audit logs, dashboards, exports, and wallet and transaction management</b>.",
+    "Integrated APIs and messaging infrastructure using <b>Kafka</b>, with validation and monitoring to support service reliability.",
+    "Developed the <b>Kooul Flutter app for iOS and Android</b>, covering authentication, browsing, checkout, order management, and real-time tracking.",
+    "Integrated push notifications, analytics, remote configuration, maps, and secure local storage into mobile workflows."
+  ],
+  "projects": [
+    {
+      "name": "ft_transcendence",
+      "type": "REAL-TIME APPLICATION",
+      "summary": "A multiplayer Pong game with chat and live notifications.",
+      "detail": "Led backend development: core APIs, JWT authentication, real-time sockets, and CI/CD with GitHub Actions.",
+      "tags": ["NestJS", "Socket.IO", "PostgreSQL", "Docker"],
+      "url": "https://github.com/TN19N/ft_transcendence",
+      "kind": "pong"
+    },
+    {
+      "name": "WebServ",
+      "type": "SYSTEMS PROGRAMMING",
+      "summary": "An HTTP/1.1 server built from scratch in C++.",
+      "detail": "Built with a teammate, using non-blocking I/O and multiplexing for concurrent connections; supports CGI, chunked transfers, and keep-alive.",
+      "tags": ["C++", "HTTP/1.1", "Non-blocking I/O"],
+      "url": "https://github.com/TN19N/WebServ",
+      "kind": "server"
+    },
+    {
+      "name": "Inception",
+      "type": "CONTAINER INFRASTRUCTURE",
+      "summary": "A multi-service environment built with Docker Compose.",
+      "detail": "Orchestrated WordPress, Nginx, MariaDB, and Redis, with network configuration, container security, and service automation.",
+      "tags": ["Docker Compose", "Nginx", "MariaDB", "Redis"],
+      "url": "https://github.com/TN19N/inception",
+      "kind": "infra"
+    }
+  ],
+  "skills": {
+    "Backend": [
+      "TypeScript",
+      "NestJS / Node.js",
+      "PostgreSQL",
+      "Kafka",
+      "REST APIs",
+      "Socket.IO"
+    ],
+    "Mobile": ["Dart", "Flutter", "iOS / Android"],
+    "Systems & tools": [
+      "Rust",
+      "C / C++",
+      "Docker",
+      "Git / GitHub Actions",
+      "Linux / UNIX",
+      "Networking"
+    ],
+    "Additional": ["Python"]
+  },
+  "languages": ["Arabic - Native", "English - Business level"]
+}
