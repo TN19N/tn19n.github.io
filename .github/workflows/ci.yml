@@ -1,41 +1,20 @@
-name: Continuous Integration
-
+name: Check portfolio
 on:
   pull_request:
-    branches:
-      - main
-
-env:
-  CARGO_TERM_COLOR: always
-
+    branches: [main]
 permissions:
   contents: read
-  pull-requests: write
-
-# Saves minutes and keeps only the latest PR run active.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: checks-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-
-      - name: Set up toolchain
-        uses: moonrepo/setup-toolchain@v0
-        with:
-          auto-install: true
-
-      - name: Run Checks
-        run: moon ci :check :fmt/check :clippy/check :test --color
-
-      - name: Run report
-        uses: moonrepo/run-report-action@v1
-        if: success() || failure()
-        with:
-          access-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
